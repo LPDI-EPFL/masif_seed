@@ -97,7 +97,11 @@ if masif_opts['use_hphob']:
         vertex_hphobicity, masif_opts)
 
 if masif_opts['use_apbs']:
+    start_time = time.perf_counter()
     vertex_charges = computeAPBS(regular_mesh.vertices, out_filename1+".pdb", out_filename1)
+    end = time.perf_counter()
+    print('Computing APBS electrostatics took: {:.2f}s'.format(end-start))
+
 
 start = time.perf_counter()
 # Compute the normals
