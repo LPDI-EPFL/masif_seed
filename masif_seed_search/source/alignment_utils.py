@@ -194,6 +194,10 @@ def match_descriptors(directory_list, pids, target_desc, params):
 
 
     # Flatten the matches and convert to a dictionary 
+    if len(all_matched_names) == 0: 
+        print('Iterated over {} fragments from {} proteins; matched 0 based on descriptor similarity.'.format(count_descriptors, count_proteins))
+        print('No descriptors were matched. Check your parameters.')
+        return {}
     matched_names = np.concatenate(all_matched_names, axis=0)
     matched_vix = np.concatenate(all_matched_vix, axis=0)
     print('Iterated over {} fragments from {} proteins; matched {} based on descriptor similarity.'.format(count_descriptors, count_proteins, len(matched_vix)))
