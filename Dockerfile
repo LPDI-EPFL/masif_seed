@@ -60,10 +60,7 @@ RUN pip3 install ipython Biopython sklearn tensorflow==1.12 networkx open3d pack
 
 # Clone masif
 WORKDIR /
-ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
-RUN git clone https://github.com/LPDI-EPFL/masif
 
 # We need to define the command to launch when we are going to run the image.
 # We use the keyword 'CMD' to do that.
-WORKDIR /masif
 CMD [ "bash" ]
