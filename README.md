@@ -1,8 +1,41 @@
-# masif_seed_search
-This repository contains code to perform seed searching with masif on EPFL's cluster.
+# Masif-seed - An enhanced representation of protein structures that enables de novo design of protein interactions
+
+This repository contains code to design de novo binders based on surface fingerprints. The code was used to perform the experiments in: [citation]
+
+## Table of Contents: 
+
+- [Description](#description)
+- [System and hardware requirements](#system-and-hardware-requirements)
+- [Running through a docker container](#running-through-a-docker-container)
+- [Method overview](#Method-overview)
+     * [MaSIF data preparation](#MaSIF-data-preparation)
+- [Step-by-step example](#code-overview)
+- [Reproducing the benchmarks](#reproducing-the-benchmark)
+- [Running the code on PD-L1, PD-1, and RBD](#running-the-code-on-pd-l1,-pd-1,-and-RBD)
+- [PyMOL plugin](#PyMOL-plugin)
+- [Docker container](#Docker-container)
+- [License](#License)
+- [Reference](#Reference)
+
+## Description
+
+## System and hardware requirements
+
+MaSIF-seed has been tested on Linux (Red Hat Enterprise Linux Server release 7.4, with a Intel(R) Xeon(R) CPU E5-2650 v2 @ 2.60GHz 
+processesor and 16GB of memory allotment). We find some of the code extremely slow on the newer M1 processors.
+To reproduce the experiments in the paper, the entire datasets for all proteins consume several terabytes. 
+
+Currently, MaSIF takes a few seconds to preprocess every protein. We find the main bottleneck to be the APBS computation for surface charges,
+which can likely be optimize. Nevertheless, we recommend a distributed cluster to 
+preprocess the data for large datasets of proteins. If retraining, we strongly recommend using a GPU to 
+train or evaluate the trained models as it can be up to 100 times faster than a CPU; for inference, we find a CPU is enough.
+
+## Running through a docker container
+
+Since Masif-seed relies on a few external programs (msms, APBS) and libraries (pyMesh, tensorflow, scipy, open3D), 
+we strongly recommend you use the Dockerfile and Docker container. 
 
 
-# Procedure to run masif seed search. 
 
 ## Preliminaries
 
@@ -188,4 +221,10 @@ The goal is to improve the quality, speed, and usability of masif-seed-search. T
 
 
 
+## License
+
+MaSIF is released under an [Apache v2.0 license](LICENSE).
+
+## Reference
+If you use this code, please use the bibtex entry in [citation.bib](citation.bib)
 
