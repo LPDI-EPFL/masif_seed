@@ -23,14 +23,13 @@ This repository contains code to design de novo binders based on surface fingerp
 
 ## System and hardware requirements
 
-MaSIF-seed has been tested on Linux (Red Hat Enterprise Linux Server release 7.4, with a Intel(R) Xeon(R) CPU E5-2650 v2 @ 2.60GHz 
-processesor and 16GB of memory allotment). We find some of the code extremely slow on the newer M1 processors.
+MaSIF-seed has been tested on Linux. We find some of the code extremely slow on the newer M1 processors.
 To reproduce the experiments in the paper, the entire datasets for all proteins consume several terabytes. 
 
 Currently, MaSIF takes a few seconds to preprocess every protein. We find the main bottleneck to be the APBS computation for surface charges,
 which can likely be optimize. Nevertheless, we recommend a distributed cluster to 
-preprocess the data for large datasets of proteins. If retraining, we strongly recommend using a GPU to 
-train or evaluate the trained models as it can be up to 100 times faster than a CPU; for inference, we find a CPU is enough.
+preprocess the data for large datasets of proteins. A GPU is strongly recommended, especially for computing masif-search and masif-site 
+inference, as it can be 60 times faster!
 
 ## Running through a docker container
 
