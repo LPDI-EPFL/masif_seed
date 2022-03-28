@@ -14,7 +14,7 @@ FROM pymesh/pymesh
 
 # install necessary dependencies
 RUN apt-get update && \
-	apt-get install -y wget git unzip cmake vim libgl1-mesa-glx
+	apt-get install -y wget git unzip cmake vim libgl1-mesa-glx dssp
 	
 # DOWNLOAD/INSTALL APBS
 RUN mkdir /install
