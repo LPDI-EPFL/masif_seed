@@ -1,4 +1,5 @@
 import open3d as o3d
+from time import time
 import copy 
 from IPython.core.debugger import set_trace
 import numpy as np
@@ -115,7 +116,7 @@ def get_target_vix(pc, iface, num_sites=1, selected_vertices=None):
         best_val = float("-inf")
         best_neigh = []
         for ii in selected_vertices:
-            neigh = pc[ii]
+            neigh = pc[ii][0:100]
             val = np.mean(iface[neigh])
             if val > best_val:
                 best_ix = ii
@@ -123,7 +124,7 @@ def get_target_vix(pc, iface, num_sites=1, selected_vertices=None):
                 best_neigh = neigh
 
         # Now that a site has been identified, clear the iface values so that the same site is not picked again.
-        iface[best_neigh] = 0
+        iface[best_neigh] = 0.5
         target_vertices.append(best_ix)
 
     return target_vertices
@@ -212,13 +213,18 @@ def match_descriptors(directory_list, pids, target_desc, params):
     return matched_dict
 
 def count_clashes(transformation, source_surface_vertices, source_structure, \
-        target_ca_pcd_tree, target_pcd_tree, radius=2.0):
+        target_ca_pcd_tree, target_pcd_tree, ca_clash_threshold, clash_threshold, radius=2.0):
 
     structure_ca_coords = np.array([atom.get_coord() for atom in source_structure.get_atoms() if atom.get_id() == 'CA'])
     structure_ca_coord_pcd = o3d.PointCloud()
     structure_ca_coord_pcd.points = o3d.Vector3dVector(structure_ca_coords)
     structure_ca_coord_pcd_notTransformed = copy.deepcopy(structure_ca_coord_pcd)
     structure_ca_coord_pcd.transform(transformation)
+
+    d_nn_ca, i_nn_ca = target_pcd_tree.query(np.asarray(structure_ca_coord_pcd.points),k=1,distance_upper_bound=radius)
+    clashing_ca = np.sum(d_nn_ca<=radius)
+    if clashing_ca > ca_clash_threshold:
+        return clashing_ca, 0
         
     structure_atoms = [atom for atom in source_structure.get_atoms() if not atom.get_name().startswith('H')]
     structure_coords = np.array([atom.get_coord() for atom in structure_atoms])
@@ -227,21 +233,18 @@ def count_clashes(transformation, source_surface_vertices, source_structure, \
     structure_coord_pcd_notTransformed = copy.deepcopy(structure_coord_pcd)
     structure_coord_pcd.transform(transformation)
 
-    # Compute the distance between every source_surface_vertices and every target vertex.
-    d_vi_at, i_vi_at = target_pcd_tree.query(source_surface_vertices, k=1)
-
-    # Transform the input structure. - This is a bit of a bad programming practice.
-    for ix, v in enumerate(structure_coord_pcd.points):
-        structure_atoms[ix].set_coord(v)
-
     # Invoke cKDTree with (structure_coord_pcd)
 
-    d_nn_ca, i_nn_ca = target_pcd_tree.query(np.asarray(structure_ca_coord_pcd.points),k=1,distance_upper_bound=radius)
     d_nn, i_nn = target_pcd_tree.query(np.asarray(structure_coord_pcd.points),k=1,distance_upper_bound=radius)
-    clashing_ca = np.sum(d_nn_ca<=radius)
     clashing = np.sum(d_nn<=radius)
+    if clashing > clash_threshold:
+        return 0, clashing
+
+    # if clashes are above threshold, transform the input structure. - This is a bit of a bad programming practice.
+    for ix, v in enumerate(structure_coord_pcd.points):
+        structure_atoms[ix].set_coord(v)
     
-    return clashing_ca,clashing,d_vi_at
+    return clashing_ca,clashing
 
 
 def multidock(source_pcd, source_patch_coords, source_descs, 
@@ -370,22 +373,29 @@ def align_protein(name, \
         chain_number = 2
         
     # Load source ply file, coords, and descriptors.
-    
+    start = time()
     #print('{}'.format(pdb+'_'+chain))
     source_pcd, source_desc, source_iface = load_protein_pcd(ppi_pair_id, chain_number, source_paths, flipped_features=False, read_mesh=False)
+    end = time()
+    load_prot_time = end-start
+    
 
     # Get coordinates for all matched vertices.
     source_vix = matched_dict[name]
     source_coord =  get_patch_coords(params['seed_precomp_dir'], ppi_pair_id, pid, cv=source_vix)
     
     # Perform all alignments to target. 
+    start = time()
     all_results, all_source_patch, all_source_patch_desc, all_source_idx = multidock(
             source_pcd, source_coord, source_desc,
             source_vix, target_patch, target_patch_descs, 
             params
             ) 
+    end = time()
+    ransac_time = end-start
 
     # Score the results using a 'lightweight' scoring function.
+    start = time()
     all_source_scores = [None]*len(source_vix)
     for viii in range(len(source_vix)):
         if len(all_results[viii].correspondence_set)/float(len(np.asarray(all_source_patch[viii].points))) < 0.3:
@@ -398,10 +408,8 @@ def align_protein(name, \
             all_source_scores[viii] = compute_nn_score(target_patch, all_source_patch[viii], np.asarray(all_results[viii].correspondence_set),
                  target_patch_descs, all_source_patch_desc[viii], \
                 target_ckdtree, nn_score, d_vi_at, 1.0) # Ignore point importance for speed.
-            if len(np.asarray(all_results[viii].correspondence_set)) <= 2.0:
-                if all_source_scores[viii][0][0] > 0.9: 
-                    set_trace()
-#                    set_trace()
+    end = time()
+    score_time = end-start
 
     # All_point_importance: impact of each vertex on the score. 
     all_point_importance = [x[1] for x in all_source_scores]
@@ -410,8 +418,19 @@ def align_protein(name, \
     
     # Filter anything below neural network score cutoff
     top_scorers = np.where(scores[:,0] > params['nn_score_cutoff'])[0]
+
+    count_clash_time = 0
+    load_pdb_time = 0
+    align_and_save_time = 0
+
     
     if len(top_scorers) > 0:
+        # Load the source pdb structure 
+        start = time()
+        source_struct = parser.get_structure('{}_{}'.format(pdb,chain), os.path.join(params['seed_pdb_dir'],'{}_{}.pdb'.format(pdb,chain)))
+        end = time()
+        load_pdb_time += (start -end)
+
         source_outdir = os.path.join(site_outdir, '{}'.format(ppi_pair_id))
         if not os.path.exists(source_outdir):
             os.makedirs(source_outdir)
@@ -421,32 +440,42 @@ def align_protein(name, \
         for j in top_scorers:
             res = all_results[j]
 
-            # Load the source pdb structure 
-            source_struct = parser.get_structure('{}_{}'.format(pdb,chain), os.path.join(params['seed_pdb_dir'],'{}_{}.pdb'.format(pdb,chain)))
+            start = time()
             # Count clashes and align source_structure_cp
             source_structure_cp = copy.deepcopy(source_struct)
-            clashing_ca, clashing_total, _= count_clashes(res.transformation, np.asarray(all_source_patch[j].points), source_structure_cp, \
-                target_ca_pcd_tree, target_pcd_tree)
+            #print('Computing clashes')
+            clashing_ca, clashing_total= count_clashes(res.transformation, np.asarray(all_source_patch[j].points), source_structure_cp, \
+                target_ca_pcd_tree, target_pcd_tree, params['allowed_CA_clashes'], params['allowed_heavy_atom_clashes'])
+            end = time()
+            count_clash_time += end-start
 
             # Check if the number of clashes exceeds the number allowed. 
             if clashing_ca <= params['allowed_CA_clashes'] and clashing_total <= params['allowed_heavy_atom_clashes']:
 
+             #   print('Aligning and saving pdb and patch')
                 # Align and save the pdb + patch 
                 out_fn = source_outdir+'/{}_{}_{}'.format(pdb, chain, j)
+                start = time()
                 align_and_save(out_fn, all_source_patch[j], source_structure_cp, \
                                             point_importance=all_point_importance[j])
+                end = time()
+                count_clash_time += (end-start)
 
                 # Recompute the score with clashes.
                 print('Selected fragment: {} fragment_id: {} score: {:.4f} desc_dist_score: {:.4f} clashes(CA): {} clashes(total):{}\n'.format(j , ppi_pair_id, scores[j][0], scores[j][1], clashing_ca, clashing_total))
 
-                # Align and save the ply file for convenience.     
-                mesh = Simple_mesh()
-                mesh.load_mesh(os.path.join(params['seed_surf_dir'],'{}.ply'.format(pdb+'_'+chain)))
-                
                 # Output the score for convenience. 
                 out_score = open(out_fn+'.score', 'w+')
                 out_score.write('name: {}, point id: {}, score: {:.4f}, clashing_ca: {}, clashing_heavy: {}, desc_dist_score: {}\n'.format(ppi_pair_id, j, scores[j][0], clashing_ca,clashing_total, scores[j][1]))
                 out_score.close()
+
+                continue
+                ### The following code is not accessed at this time.
+                # Align and save the ply file for convenience.     
+                print('Aligning and saving ply for convenience')
+                mesh = Simple_mesh()
+                mesh.load_mesh(os.path.join(params['seed_surf_dir'],'{}.ply'.format(pdb+'_'+chain)))
+                
 
                 source_pcd_copy = copy.deepcopy(source_pcd)
                 source_pcd_copy.transform(res.transformation)
@@ -461,4 +490,10 @@ def align_protein(name, \
                 mesh.vertices = out_vertices
                 mesh.set_attribute('vertex_iface', source_iface) 
                 mesh.save_mesh(out_fn+'.ply')
+                print('Finished aligning and saving ply for convenience')
                 #save_ply(out_fn+'.ply', out_vertices, mesh.faces, out_normals, charges=mesh.get_attribute('vertex_charge'))
+    #print(f'Counting clashes time: {count_clash_time:.2f}s')
+    #print(f'Load pdb time: {load_pdb_time:.2f}s')
+    #print(f'Align and save time: {align_and_save_time:.2f}s')
+    #print(f'Score time: {score_time:.2f}s')
+    #print(f'Ransac time: {ransac_time:.2f}s')

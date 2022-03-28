@@ -19,7 +19,7 @@ else
 	PDB_ID=$(echo $PPI_PAIR_ID| cut -d"_" -f1)
 	CHAIN1=$(echo $PPI_PAIR_ID| cut -d"_" -f2)
 	CHAIN2=$(echo $PPI_PAIR_ID| cut -d"_" -f3)
-	python -W ignore $masif_source/data_preparation/00-pdb_download.py $PPI_PAIR_ID
+#	python -W ignore $masif_source/data_preparation/00-pdb_download.py $PPI_PAIR_ID
 fi
 python -W ignore $masif_source/data_preparation/01-pdb_extract_and_triangulate.py $PDB_ID\_$CHAIN1
 python $masif_source/data_preparation/04-masif_precompute.py masif_site $PPI_PAIR_ID
