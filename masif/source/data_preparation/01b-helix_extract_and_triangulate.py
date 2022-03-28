@@ -18,7 +18,7 @@ from input_output.save_ply import save_ply
 from input_output.read_ply import read_ply
 from input_output.protonate import protonate
 from triangulation.computeHydrophobicity import computeHydrophobicity
-from triangulation.computeCharges import computeHbonds, assignChargesToNewMesh
+from triangulation.computeCharges import computeCharges, assignChargesToNewMesh
 from triangulation.computeAPBS import computeAPBS
 from triangulation.compute_normal import compute_normal
 
@@ -82,11 +82,12 @@ for chain_id in list(chain_ids1):
         extractHelix(helix, pdb_filename, out_filename1+".pdb", chain_id)
 
         # Compute MSMS of surface w/hydrogens, 
-        vertices1, faces1, normals1, names1, areas1 = computeMSMS(out_filename1+".pdb")
+        vertices1, faces1, normals1, names1, areas1 = computeMSMS(out_filename1+".pdb",\
+            protonate=True)
 
         # Compute "charged" vertices
         if masif_opts['use_hbond']:
-            vertex_hbond = computeHbonds(out_filename1, vertices1, names1)
+            vertex_hbond = computeCharges(out_filename1, vertices1, names1)
 
         # For each surface residue, assign the hydrophobicity of its amino acid. 
         if masif_opts['use_hphob']:

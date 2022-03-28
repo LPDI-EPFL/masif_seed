@@ -1,8 +1,9 @@
 #!/bin/bash
-repository_root=$(git rev-parse --show-toplevel)
-masif_root=$repository_root/masif/
+masif_root=$(git rev-parse --show-toplevel)
 masif_source=$masif_root/source/
+masif_matlab=$masif_root/source/matlab_libs/
 export PYTHONPATH=$PYTHONPATH:$masif_source
+export masif_matlab
 if [ "$1" == "--file" ]
 then
 	echo "Running masif site on $2"
