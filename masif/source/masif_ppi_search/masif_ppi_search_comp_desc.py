@@ -1,5 +1,5 @@
 # Header variables and parameters.
-import pymesh
+#import pymesh
 import sys
 import os
 import time
@@ -101,7 +101,7 @@ for count, ppi_pair_id in enumerate(ppi_list):
 
 
     # Read shape complementarity labels if chain2 != ''
-    if chain2 != '':
+    if chain2 != '' or False:
         try:
             labels = np.load(in_dir + "p1" + "_sc_labels.npy")
             mylabels = labels[0]
@@ -121,34 +121,36 @@ for count, ppi_pair_id in enumerate(ppi_list):
 
 
 
-    if len(l) > 0 and chain2 != "":
-        ply_fn1 = masif_opts['ply_file_template'].format(pdbid, chain1)
-        v1 = pymesh.load_mesh(ply_fn1).vertices[l]
-        from sklearn.neighbors import NearestNeighbors
+    #if len(l) > 0 and chain2 != "":
+    #    ply_fn1 = masif_opts['ply_file_template'].format(pdbid, chain1)
+    #    v1 = pymesh.load_mesh(ply_fn1).vertices[l]
+    #    from sklearn.neighbors import NearestNeighbors
 
-        ply_fn2 = masif_opts['ply_file_template'].format(pdbid, chain2 )
-        v2 = pymesh.load_mesh(ply_fn2).vertices
+    #    ply_fn2 = masif_opts['ply_file_template'].format(pdbid, chain2 )
+    #    v2 = pymesh.load_mesh(ply_fn2).vertices
 
         # For each point in v1, find the closest point in v2.
-        nbrs = NearestNeighbors(n_neighbors=1, algorithm="ball_tree").fit(v2)
-        d, r = nbrs.kneighbors(v1)
-        d = np.squeeze(d, axis=1)
-        r = np.squeeze(r, axis=1)
+    #    nbrs = NearestNeighbors(n_neighbors=1, algorithm="ball_tree").fit(v2)
+    #    d, r = nbrs.kneighbors(v1)
+    #    d = np.squeeze(d, axis=1)
+    #    r = np.squeeze(r, axis=1)
 
-        # Contact points: those within a cutoff distance.
-        contact_points = np.where(d < params["pos_interface_cutoff"])[0]
-        if len(contact_points) > 0:
-            k1 = l[contact_points]  # contact points protein 1
-            k2 = r[contact_points]  # contact points protein 2
-            assert len(k1) == len(k2)
-        else:
-            l = []
+    #    # Contact points: those within a cutoff distance.
+    #    contact_points = np.where(d < params["pos_interface_cutoff"])[0]
+    #    if len(contact_points) > 0:
+    #        k1 = l[contact_points]  # contact points protein 1
+    #        k2 = r[contact_points]  # contact points protein 2
+    #        assert len(k1) == len(k2)
+    #    else:
+    #        l = []
+    l = []
 
     tic = time.time()
     pid = "p1"
     try:
         p1_rho_wrt_center = np.load(in_dir + pid + "_rho_wrt_center.npy")
     except:
+        print('error opening '+in_dir + pid + "_rho_wrt_center.npy")
         continue
     p1_theta_wrt_center = np.load(in_dir + pid + "_theta_wrt_center.npy")
     p1_input_feat = np.load(in_dir + pid + "_input_feat.npy")

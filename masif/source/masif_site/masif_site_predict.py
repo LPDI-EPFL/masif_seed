@@ -62,7 +62,6 @@ learning_obj = MaSIF_site(
 )
 print("Restoring model from: " + params["model_dir"] + "model")
 learning_obj.saver.restore(learning_obj.session, params["model_dir"] + "model")
-
 if not os.path.exists(params["out_pred_dir"]):
     os.makedirs(params["out_pred_dir"])
 

@@ -72,7 +72,7 @@ for count, ppi_pair_id in enumerate(os.listdir(parent_in_dir)):
     train_val = np.random.random()
     # Read binder first, which is p1.
     try:
-        labels = np.load(in_dir+'p1'+'_sc_labels.npy')
+        labels = np.load(in_dir+'p1'+'_sc_labels.npy', allow_pickle=True)
         # Take the median of the percentile 25 shape complementarity.
         mylabels = labels[0]
         labels = np.median(mylabels, axis=1)
