@@ -23,7 +23,7 @@ This repository contains the code for Masif-seed used in the paper [citation.bib
 
 ## Method overview
 
-![MaSIF-seed overview and pipeline]([https://raw.githubusercontent.com/LPDI-EPFL/masif_seed/main/img/fig1_v16_Artboard%201.png](https://raw.githubusercontent.com/LPDI-EPFL/masif_seed/main/img/fig1_v16_Artboard%201.png))
+![MaSIF-seed overview and pipeline](https://raw.githubusercontent.com/LPDI-EPFL/masif_seed/main/img/fig1_v16_Artboard%201.png)
 
 
 ## System and hardware requirements
