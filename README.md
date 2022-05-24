@@ -1,4 +1,4 @@
-# Masif-seed - An enhanced representation of protein structures that enables de novo design of protein interactions
+## _Masif-seed_ - An enhanced representation of protein structures that enables de novo design of protein interactions
 
 This repository contains code to design de novo binders based on surface fingerprints. The code was used to perform the experiments in: [citation]
 
