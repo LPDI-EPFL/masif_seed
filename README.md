@@ -19,7 +19,12 @@ This repository contains code to design de novo binders based on surface fingerp
 
 ## Description
 
+This repository contains the code for Masif-seed used in the paper [citation.bib].
+
 ## Method overview
+
+![MaSIF-seed overview and pipeline](https://raw.githubusercontent.com/LPDI-EPFL/masif-seed/master/img/Figure-01.png)
+
 
 ## System and hardware requirements
 
@@ -151,17 +156,17 @@ sbatch align_all_to_all_fixed_length.slurm
 
 Once the batch job finishes, the data can be plotted in the MDS_HELICES_RMSD.ipynb jupyter notebook. 
 
-## Features in development
+## Dealing with the speed of precomputation and other resources - features in experimental mode.
 
-The goal is to improve the quality, speed, and usability of masif-seed-search. The following features are in process or in advanced stages of development: 
+Currently, the slowest step in masif-seed is the precomputation of features. 
+A branch is available in this repository that is signficantly faster in precomputations, bringing down the computation for a large protein 
+from a minute or two to a few seconds. You are welcome to experiment with this version. 
 
-+ Improved electrostatics (currently these have low influence) 
-
-
+Masif-seed takes up enourmous amount of temporary storage but most of it is not necessary to keep. 
 
 ## License
 
-MaSIF is released under an [Apache v2.0 license](LICENSE).
+MaSIF-seed is released under an [Apache v2.0 license](LICENSE).
 
 ## Reference
 If you use this code, please use the bibtex entry in [citation.bib](citation.bib)
