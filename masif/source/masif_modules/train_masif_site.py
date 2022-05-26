@@ -139,7 +139,7 @@ def train_masif_site(
                     input_feat = mask_input_feat(input_feat, params["feat_mask"])
                 mask = np.load(mydir + pid + "_mask.npy")
                 mask = np.expand_dims(mask, 2)
-                indices = np.load(mydir + pid + "_list_indices.npy", encoding="latin1")
+                indices = np.load(mydir + pid + "_list_indices.npy", encoding="latin1", allow_pickle=True)
                 # indices is (n_verts x <30), it should be
                 indices = pad_indices(indices, mask.shape[1])
                 tmp = np.zeros((len(iface_labels), 2))
@@ -260,7 +260,7 @@ def train_masif_site(
                     input_feat = mask_input_feat(input_feat, params["feat_mask"])
                 mask = np.load(mydir + pid + "_mask.npy")
                 mask = np.expand_dims(mask, 2)
-                indices = np.load(mydir + pid + "_list_indices.npy", encoding="latin1")
+                indices = np.load(mydir + pid + "_list_indices.npy", encoding="latin1", allow_pickle=True)
                 # indices is (n_verts x <30), it should be
                 indices = pad_indices(indices, mask.shape[1])
                 tmp = np.zeros((len(iface_labels), 2))
