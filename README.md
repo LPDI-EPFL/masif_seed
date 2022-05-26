@@ -1,6 +1,6 @@
-# Masif-seed - An enhanced representation of protein structures that enables de novo design of protein interactions
+## _Masif-seed_ - An enhanced representation of protein structures that enables de novo design of protein interactions
 
-This repository contains code to design de novo binders based on surface fingerprints. The code was used to perform the experiments in: [citation]
+This repository contains code to design de novo binders based on surface fingerprints. The code was used to perform the experiments in: [citation].
 
 ## Table of Contents: 
 
@@ -19,22 +19,19 @@ This repository contains code to design de novo binders based on surface fingerp
 
 ## Description
 
-This repository contains the code for Masif-seed used in the paper [citation.bib].
+This repository contains the code for Masif-seed, used in the paper [citation.bib](citation.bib). This code was used to decompose the PDB into helices 
 
 ## Method overview
 
-![MaSIF-seed overview and pipeline](https://raw.githubusercontent.com/LPDI-EPFL/masif-seed/master/img/Figure-01.png)
+![MaSIF-seed overview and pipeline](img/fig1_v16_Artboard%201.png)
 
 
 ## System and hardware requirements
 
-MaSIF-seed has been tested on Linux. We find some of the code extremely slow on the newer M1 processors.
-To reproduce the experiments in the paper, the entire datasets for all proteins consume several terabytes. 
+MaSIF-seed has been tested on Linux, and it is recommende to run on an x86-based linux Docker container. It is possible to run on an M1 Apple environment but it runs much more slowly. To reproduce the experiments in the paper, the entire datasets for all proteins consume several terabytes. 
 
-Currently, MaSIF takes a few seconds to preprocess every protein. We find the main bottleneck to be the APBS computation for surface charges,
-which can likely be optimize. Nevertheless, we recommend a distributed cluster to 
-preprocess the data for large datasets of proteins. A GPU is strongly recommended, especially for computing masif-search and masif-site 
-inference, as it can be 60 times faster!
+Currently, MaSIF takes a few seconds to preprocess every protein. We find the main bottleneck to be the APBS computation for surface charges, which can likely be optimize. Nevertheless, we recommend a distributed cluster to 
+preprocess the data for large datasets of proteins. A GPU is strongly recommended, especially for computing masif-search and masif-site inference, as it can be 60 times faster!
 
 ## Running through a docker container
 
@@ -158,11 +155,11 @@ Once the batch job finishes, the data can be plotted in the MDS_HELICES_RMSD.ipy
 
 ## Dealing with the speed of precomputation and other resources - features in experimental mode.
 
-Currently, the slowest step in masif-seed is the precomputation of features. 
-A branch is available in this repository that is signficantly faster in precomputations, bringing down the computation for a large protein 
-from a minute or two to a few seconds. You are welcome to experiment with this version. 
+Computing masif-search fingerprints is around 60x faster with a GPU vs. a CPU.
 
-Masif-seed takes up enourmous amount of temporary storage but most of it is not necessary to keep. 
+Currently, the slowest step in masif-seed is the precomputation of features. A branch is available in this repository that is signficantly faster in precomputations, bringing down the computation for a large protein from a minute or two to a few seconds. You are welcome to experiment with this version. The main changes to the fast version are in the replacement of multi-dimensional scaling for patch radial coordinates (the slowest step in precomputation) with radial coordinates computed directly with Dijkstra.
+
+Masif-seed uses a large amount of temporary storage for the patch decomposition, but most of it is not necessary to keep after computing fingerpritns. 
 
 ## License
 
