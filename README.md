@@ -19,7 +19,7 @@ This repository contains code to design de novo binders based on surface fingerp
 
 ## Description
 
-This repository contains the code for Masif-seed used in the paper [citation.bib].
+This repository contains the code for Masif-seed, used in the paper [citation.bib](citation.bib).
 
 ## Method overview
 
