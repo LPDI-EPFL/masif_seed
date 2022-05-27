@@ -1,0 +1,31 @@
+2hsq rank: 46, score: 0.9825, rmsd: 1.0941239595413208
+1xj7 N/A
+4q5u rank: 13, score: 0.9909, rmsd: 0.7528436779975891
+5yqz rank: 0, score: 0.9994, rmsd: 0.9839482307434082
+5ajj rank: 0, score: 0.9979, rmsd: 0.4933672249317169
+4dbg rank: 0, score: 0.9984, rmsd: 0.7036777138710022
+3c5t N/A
+2qna N/A
+6e3j rank: 0, score: 0.9995, rmsd: 1.0332797765731812
+3h8k N/A
+1dp5 rank: 0, score: 0.9978, rmsd: 0.7103738784790039
+1t01 rank: 0, score: 0.999, rmsd: 0.6466757655143738
+2yq7 rank: 0, score: 0.9997, rmsd: 0.38913169503211975
+2xpx rank: 0, score: 0.9995, rmsd: 0.6965020298957825
+3tz1 rank: 0, score: 0.9998, rmsd: 0.5387192368507385
+2voh rank: 0, score: 0.9995, rmsd: 0.8075579404830933
+5tzp N/A
+4yyp rank: 203, score: 0.9673, rmsd: 1.7951570749282837
+4nm3 rank: 0, score: 0.9996, rmsd: 0.39376506209373474
+4g35 N/A
+1t5z rank: 0, score: 0.9984, rmsd: 0.7787584066390991
+3au4 rank: 0, score: 0.9991, rmsd: 0.8082977533340454
+1g0v rank: 0, score: 0.9975, rmsd: 0.609778881072998
+5f5s N/A
+2a7u rank: 0, score: 0.999, rmsd: 0.7497593760490417
+3kj2 rank: 0, score: 0.9997, rmsd: 0.6148035526275635
+5ua4 rank: 0, score: 0.9988, rmsd: 0.5134859681129456
+4zw2 rank: 0, score: 0.9997, rmsd: 0.5040034651756287
+3h3g rank: 0, score: 0.9978, rmsd: 0.31664320826530457
+5wos rank: 0, score: 0.9981, rmsd: 0.573305070400238
+3lbx N/A

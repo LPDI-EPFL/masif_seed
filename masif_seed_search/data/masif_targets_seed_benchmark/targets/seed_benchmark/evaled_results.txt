@@ -1,0 +1,62 @@
+Num_results: 1
+Success: 2hsq_A:      4	name: 2hsq_B, point id: 35, score: 0.9898, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 48.428244002662424 iRMSD: 0.9521172
+Num_results: 0
+Failed for 1xj7_A
+Num_results: 3
+Success: 4q5u_A:      1	name: 4q5u_C, point id: 129, score: 0.9969, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 73.83074456747251 iRMSD: 0.8103347
+Num_results: 34
+Success: 5yqz_R:      1	name: 5yqz_P, point id: 80, score: 0.9996, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 88.3184492872094 iRMSD: 0.48299864
+Num_results: 39
+Success: 5ajj_A:      1	name: 5ajj_B, point id: 126, score: 0.9989, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 69.92095668657606 iRMSD: 0.46628612
+Num_results: 11
+Success: 4dbg_A:      1	name: 4dbg_B, point id: 23, score: 0.9985, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 77.34648721190132 iRMSD: 0.70563644
+Num_results: 0
+Failed for 3c5t_A
+Num_results: 0
+Failed for 2qna_A
+Num_results: 21
+Success: 6e3j_A:      1	name: 6e3j_B, point id: 74, score: 0.9999, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 99.4364284702313 iRMSD: 1.0060873
+Num_results: 0
+Failed for 3h8k_A
+Num_results: 1
+Success: 1dp5_A:      1	name: 1dp5_B, point id: 7, score: 0.9952, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 71.3744603498421 iRMSD: 0.7103739
+Num_results: 21
+Success: 1t01_A:      1	name: 1t01_B, point id: 95, score: 0.9995, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 92.99043133939858 iRMSD: 0.72480994
+Num_results: 37
+Success: 2yq7_A:      1	name: 2yq7_B, point id: 48, score: 0.9999, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 143.9530711084914 iRMSD: 0.3876744
+Num_results: 31
+Success: 2xpx_A:      1	name: 2xpx_B, point id: 44, score: 0.9995, clashing_ca: 0, clashing_heavy: 1, desc_dist_score: 104.81062521966474 iRMSD: 0.80556333
+Num_results: 52
+Success: 3tz1_A:      1	name: 3tz1_B, point id: 76, score: 1.0000, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 118.46513602115112 iRMSD: 0.6176505
+Num_results: 48
+Success: 2voh_A:      1	name: 2voh_B, point id: 51, score: 1.0000, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 82.97277509569336 iRMSD: 0.29974252
+Num_results: 1
+Success: 5tzp_A:      1	name: 5tzp_B, point id: 10, score: 0.9956, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 47.32023657306592 iRMSD: 0.84248644
+Num_results: 0
+Failed for 4yyp_A
+Num_results: 21
+Success: 4nm3_A:      1	name: 4nm3_B, point id: 21, score: 0.9995, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 62.476807799235466 iRMSD: 0.4960808
+Num_results: 10
+Success: 4g35_A:      1	name: 4g35_B, point id: 58, score: 0.9997, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 58.89889496106878 iRMSD: 3.7268863
+Num_results: 9
+Success: 1t5z_A:      1	name: 1t5z_B, point id: 25, score: 0.9983, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 69.12630364218458 iRMSD: 0.7787584
+Num_results: 8
+Success: 3au4_A:      1	name: 3au4_B, point id: 1, score: 0.9990, clashing_ca: 0, clashing_heavy: 1, desc_dist_score: 90.66298052041363 iRMSD: 1.0268433
+Num_results: 2
+Success: 1g0v_A:      1	name: 1g0v_B, point id: 18, score: 0.9965, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 58.14123855384355 iRMSD: 0.5707188
+Num_results: 0
+Failed for 5f5s_A
+Num_results: 2
+Success: 2a7u_B:      1	name: 2a7u_A, point id: 17, score: 0.9985, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 66.66723372382442 iRMSD: 0.38425532
+Num_results: 12
+Success: 3kj2_A:      1	name: 3kj2_B, point id: 8, score: 0.9998, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 87.8407740013566 iRMSD: 0.4193111
+Num_results: 24
+Success: 5ua4_A:      1	name: 5ua4_B, point id: 45, score: 0.9998, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 102.20036246228406 iRMSD: 0.47266984
+Num_results: 16
+Success: 4zw2_A:      1	name: 4zw2_B, point id: 54, score: 0.9999, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 100.68110438242958 iRMSD: 0.36184064
+Num_results: 2
+Success: 3h3g_A:      2	name: 3h3g_B, point id: 25, score: 0.9960, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 56.3718004800526 iRMSD: 0.43035802
+Num_results: 1
+Success: 5wos_A:      1	name: 5wos_B, point id: 24, score: 0.9947, clashing_ca: 0, clashing_heavy: 0, desc_dist_score: 53.290343114929165 iRMSD: 0.6294762
+Num_results: 0
+Failed for 3lbx_B
