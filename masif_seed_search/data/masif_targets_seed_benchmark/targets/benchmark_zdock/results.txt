@@ -1,0 +1,120 @@
+Starting 2hsq_A_B
+Rank in wildtype: 2
+Rank overall: 9652
+Rmsd: 2.498784065246582
+Starting 1xj7_A_B
+Rank in wildtype: 1
+Rank overall: 3054
+Rmsd: 1.0500893592834473
+Starting 4q5u_A_C
+Rank in wildtype: 1
+Rank overall: 2
+Rmsd: 1.675612449645996
+Starting 5yqz_R_P
+Rank in wildtype: 6
+Rank overall: 6112
+Rmsd: 1.1729521751403809
+Starting 5ajj_A_B
+Rank in wildtype: 1
+Rank overall: 413
+Rmsd: 1.5485570430755615
+Starting 4dbg_A_B
+Rank in wildtype: 1
+Rank overall: 2
+Rmsd: 1.884562373161316
+Starting 3c5t_A_B
+Rank in wildtype: 101
+Rank overall: N/D
+Starting 2qna_A_B
+Rank in wildtype: 101
+Rank overall: N/D
+Starting 6e3j_A_B
+Rank in wildtype: 1
+Rank overall: 12
+Rmsd: 1.9497878551483154
+Starting 3h8k_A_B
+Rank in wildtype: 1
+Rank overall: 2
+Rmsd: 1.2152713537216187
+Starting 1dp5_A_B
+Rank in wildtype: 75
+Rank overall: 63394
+Rmsd: 2.2132840156555176
+Starting 1t01_A_B
+Rank in wildtype: 1
+Rank overall: 5447
+Rmsd: 2.3973278999328613
+Starting 2yq7_A_B
+Rank in wildtype: 1
+Rank overall: 11
+Rmsd: 0.5050038695335388
+Starting 2xpx_A_B
+Rank in wildtype: 29
+Rank overall: 70357
+Rmsd: 2.7248215675354004
+Starting 3tz1_A_B
+Rank in wildtype: 1
+Rank overall: 6
+Rmsd: 2.0010974407196045
+Starting 2voh_A_B
+Rank in wildtype: 1
+Rank overall: 4945
+Rmsd: 1.7186756134033203
+Starting 5tzp_A_B
+Rank in wildtype: 22
+Rank overall: 2339
+Rmsd: 1.2133911848068237
+Starting 4yyp_A_B
+Rank in wildtype: 4
+Rank overall: 31678
+Rmsd: 0.9122425317764282
+Starting 4nm3_A_B
+Rank in wildtype: 1
+Rank overall: 37
+Rmsd: 2.5919389724731445
+Starting 4g35_A_B
+Rank in wildtype: 1
+Rank overall: 16489
+Rmsd: 1.6506733894348145
+Starting 1t5z_A_B
+Rank in wildtype: 1
+Rank overall: 5
+Rmsd: 1.6657251119613647
+Starting 3au4_A_B
+Rank in wildtype: 1
+Rank overall: 2890
+Rmsd: 1.2427310943603516
+Starting 1g0v_A_B
+Rank in wildtype: 101
+Rank overall: N/D
+Starting 5f5s_A_B
+Rank in wildtype: 101
+Rank overall: N/D
+Starting 2a7u_B_A
+Rank in wildtype: 1
+Rank overall: 2350
+Rmsd: 1.4543142318725586
+Starting 3kj2_A_B
+Rank in wildtype: 2
+Rank overall: 3174
+Rmsd: 1.3989715576171875
+Starting 5ua4_A_B
+Rank in wildtype: 1
+Rank overall: 3026
+Rmsd: 1.9171594381332397
+Starting 4zw2_A_B
+Rank in wildtype: 1
+Rank overall: 1
+Rmsd: 0.9694838523864746
+Starting 3h3g_A_B
+Rank in wildtype: 1
+Rank overall: 48
+Rmsd: 0.9703829884529114
+Starting 5wos_A_B
+Rank in wildtype: 43
+Rank overall: 11685
+Rmsd: 0.9418179392814636
+Starting 3lbx_B_A
+Rank in wildtype: 54
+Rank overall: 79616
+Rmsd: 2.475090265274048
