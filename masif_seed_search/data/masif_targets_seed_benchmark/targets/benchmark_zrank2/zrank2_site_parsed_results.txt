@@ -1,0 +1,60 @@
+Global Rank overall: 1
+RMSD of top wildtype: 1.1729521751403809
+Global Rank overall: 1
+RMSD of top wildtype: 1.2152713537216187
+Global Rank overall: 13
+RMSD of top wildtype: 1.7186756134033203
+Global Rank overall: 36
+RMSD of top wildtype: 2.3973278999328613
+Global Rank overall: 834
+RMSD of top wildtype: 2.2132840156555176
+Global Rank overall: 5
+RMSD of top wildtype: 0.5050038695335388
+Global Rank overall: 9315
+RMSD of top wildtype: 0.9418179392814636
+Global Rank overall: 27
+RMSD of top wildtype: 1.6337910890579224
+Global Rank overall: 1
+RMSD of top wildtype: 2.0010974407196045
+Global Rank overall: 31
+RMSD of top wildtype: 1.2133911848068237
+Global Rank overall: 11
+RMSD of top wildtype: 2.498784065246582
+Global Rank overall: 1957
+RMSD of top wildtype: 1.2427310943603516
+Global Rank overall: 74
+RMSD of top wildtype: 1.4543142318725586
+Global Rank overall: N/D
+Global Rank overall: 3
+RMSD of top wildtype: 1.5485570430755615
+Global Rank overall: 475
+RMSD of top wildtype: 1.0500893592834473
+Global Rank overall: 591
+RMSD of top wildtype: 1.3989715576171875
+Global Rank overall: 1
+RMSD of top wildtype: 1.9497878551483154
+Global Rank overall: 3
+RMSD of top wildtype: 2.7248215675354004
+Global Rank overall: N/D
+Global Rank overall: 2
+RMSD of top wildtype: 1.675612449645996
+Global Rank overall: 3386
+RMSD of top wildtype: 1.7351007461547852
+Global Rank overall: 140
+RMSD of top wildtype: 0.9122425317764282
+Global Rank overall: 2
+RMSD of top wildtype: 2.5919389724731445
+Global Rank overall: 2
+RMSD of top wildtype: 0.9703829884529114
+Global Rank overall: 286
+RMSD of top wildtype: 1.6657251119613647
+Global Rank overall: 44
+RMSD of top wildtype: 0.9694838523864746
+Global Rank overall: 1
+RMSD of top wildtype: 1.884562373161316
+Global Rank overall: 2594
+RMSD of top wildtype: 2.163637161254883
+Global Rank overall: 60
+RMSD of top wildtype: 1.9171594381332397
+Global Rank overall: 1641
+RMSD of top wildtype: 2.475090265274048
