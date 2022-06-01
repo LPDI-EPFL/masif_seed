@@ -1,4 +1,4 @@
-## _Masif-seed_ - An enhanced representation of protein structures that enables de novo design of protein interactions
+## _MaSIF-seed_ - An enhanced representation of protein structures that enables de novo design of protein interactions
 
 This repository contains code to design de novo binders based on surface fingerprints. The code was used to perform the experiments in: [citation].
 
@@ -19,7 +19,7 @@ This repository contains code to design de novo binders based on surface fingerp
 
 ## Description
 
-This repository contains the code for Masif-seed, used in the paper [citation.bib](citation.bib). This code was used to decompose the PDB into helices 
+This repository contains the code for MaSIF-seed, used in the paper [citation.bib](citation.bib). This code was used to decompose the PDB into helices 
 
 ## Method overview
 
@@ -28,18 +28,18 @@ This repository contains the code for Masif-seed, used in the paper [citation.bi
 
 ## System and hardware requirements
 
-MaSIF-seed has been tested on Linux, and it is recommende to run on an x86-based linux Docker container. It is possible to run on an M1 Apple environment but it runs much more slowly. To reproduce the experiments in the paper, the entire datasets for all proteins consume several terabytes. 
+MaSIF-seed has been tested on Linux, and it is recommended to run on an x86-based linux Docker container. It is possible to run on an M1 Apple environment but it runs much more slowly. To reproduce the experiments in the paper, the entire datasets for all proteins consume several terabytes. 
 
-Currently, MaSIF takes a few seconds to preprocess every protein. We find the main bottleneck to be the APBS computation for surface charges, which can likely be optimize. Nevertheless, we recommend a distributed cluster to 
-preprocess the data for large datasets of proteins. A GPU is strongly recommended, especially for computing masif-search and masif-site inference, as it can be 60 times faster!
+Currently, MaSIF takes a few seconds to preprocess every protein. We find the main bottleneck to be the APBS computation for surface charges, which can likely be optimized. Nevertheless, we recommend a distributed cluster to 
+preprocess the data for large datasets of proteins. A GPU is strongly recommended, especially for computing MaSIF-search and MaSIF-site inference, as it can be 60 times faster!
 
 ## Running through a docker container
 
-Since Masif-seed relies on a few external programs (msms, APBS) and libraries (pyMesh, tensorflow, scipy, open3D), 
+Since MaSIF-seed relies on a few external programs (msms, APBS) and libraries (pyMesh, tensorflow, scipy, open3D), 
 we strongly recommend you use the Dockerfile and Docker container. 
 
 ```
-git clone http://https://github.com/LPDI-EPFL/masif_seed/
+git clone https://github.com/LPDI-EPFL/masif_seed.git
 cd masif_seed
 docker build . -t masif_seed 
 docker run -it -v $PWD:$PWD masif_seed
@@ -47,13 +47,13 @@ docker run -it -v $PWD:$PWD masif_seed
 
 ## Step-by-step example
 
-We will test masif seed using one example consisting of a single helix (BH3) and a receptor (Bcl-xL):
+We will test MaSIF-seed using one example consisting of a single helix (BH3) and a receptor (Bcl-xL):
 
 ```
 cd masif/data/masif_peptides/
 ```
 
-First split the BIM BH3, as crystallized in PDB id: 4QVF, chain B into helices: 
+First split the BIM BH3, as crystallized in PDB ID: 4QVF, chain B into helices: 
 
 ```
 ./data_extract_helix_one.sh 4QVF_B
@@ -66,7 +66,7 @@ helix, including the geodesic coordinates:
 ./data_precompute_patches_one.sh 4QVF000_B
 ```
 
-Finally, compute the Masif-site prediction and the Masif-search descriptors. 
+Finally, compute the MaSIF-site prediction and the MaSIF-search descriptors. 
 
 ```
 ./predict_site.sh 4QVF000_B
@@ -81,7 +81,7 @@ cd ../../../
 cd masif_seed_search/data/masif_targets/
 ```
 
-The features, Masif-site and Masif-search descriptors must be computed as well for the target, 
+The features, MaSIF-site and MaSIF-search descriptors must be computed as well for the target, 
 as well as a surface with per-vertex coloring. 
 
 ```
@@ -91,7 +91,7 @@ cp -r template/ bclxl/
 cd bclxl
 ```
 
-Finally, run the script to match Bclxl to all precomputed peptides: 
+Finally, run the script to match Bcl-xL to all precomputed peptides: 
 
 ```
 ./run.sh 4QVF_A
@@ -122,7 +122,7 @@ Finally, an important value is the neural network score cutoff. This neural netw
 params['nn_score_cutoff'] = 0.8 # Recommended values: [0.8-0.95] (higher is stricter)
 ```
 
-The number of sites to target in the protein (generally one should be fine? ):
+The number of sites to target in the protein (generally one should be fine):
 
 ```
 # Number of sites to target in the protein
@@ -155,11 +155,11 @@ Once the batch job finishes, the data can be plotted in the MDS_HELICES_RMSD.ipy
 
 ## Dealing with the speed of precomputation and other resources - features in experimental mode.
 
-Computing masif-search fingerprints is around 60x faster with a GPU vs. a CPU.
+Computing MaSIF-search fingerprints is around 60x faster with a GPU vs. a CPU.
 
-Currently, the slowest step in masif-seed is the precomputation of features. A branch is available in this repository that is signficantly faster in precomputations, bringing down the computation for a large protein from a minute or two to a few seconds. You are welcome to experiment with this version. The main changes to the fast version are in the replacement of multi-dimensional scaling for patch radial coordinates (the slowest step in precomputation) with radial coordinates computed directly with Dijkstra.
+Currently, the slowest step in MaSIF-seed is the precomputation of features. A branch is available in this repository that is signficantly faster in precomputations, bringing down the computation for a large protein from a minute or two to a few seconds. You are welcome to experiment with this version. The main changes to the fast version are in the replacement of multi-dimensional scaling for patch radial coordinates (the slowest step in precomputation) with radial coordinates computed directly with Dijkstra.
 
-Masif-seed uses a large amount of temporary storage for the patch decomposition, but most of it is not necessary to keep after computing fingerpritns. 
+MaSIF-seed uses a large amount of temporary storage for the patch decomposition, but most of it is not necessary to keep after computing fingerprints. 
 
 ## License
 
