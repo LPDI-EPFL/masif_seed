@@ -25,9 +25,7 @@ RUN ls
 RUN git checkout b3bfeec
 RUN git submodule init
 RUN git submodule update
-#RUN git checkout aa35394
 RUN ls
-#RUN git checkout tags/vAPBS-1.5.0
 RUN cmake -DGET_MSMS=ON apbs
 RUN make
 RUN make install
@@ -48,10 +46,6 @@ ENV PDB2PQR_BIN /root/pdb2pqr/pdb2pqr.py
 
 # DOWNLOAD reduce (for protonation)
 WORKDIR /install
-#RUN ["wget", "-O", "reduce.gz", "http://kinemage.biochem.duke.edu/php/downlode-3.php?filename=/../downloads/software/reduce31/reduce.3.23.130521.linuxi386.gz"]
-#RUN gunzip reduce.gz && \
-#	chmod 755 reduce && \
-#	cp reduce /usr/local/bin/
 RUN git clone https://github.com/rlabduke/reduce.git
 WORKDIR /install/reduce
 RUN make install
@@ -64,7 +58,7 @@ RUN make install
 
 # Install python libraries
 RUN pip3 install matplotlib 
-RUN pip3 install ipython Biopython sklearn tensorflow==1.12 networkx open3d packaging
+RUN pip3 install ipython Biopython sklearn tensorflow==1.12 networkx open3d dask==1.2.2 packaging
 #RUN pip install StrBioInfo 
 
 # Clone masif
