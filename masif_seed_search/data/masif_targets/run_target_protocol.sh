@@ -10,6 +10,6 @@ cp -r targets/template/ targets/$1
 #./predict_site.sh d$1
 #./color_site.sh d$1
 #./compute_descriptors.sh d$1
-echo "Creating running directory for the mirror image (d-amino acids): targets/d$1 "
+#echo "Creating running directory for the mirror image (d-amino acids): targets/d$1 "
 #cp -r targets/template/ targets/d$1
 
