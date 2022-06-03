@@ -86,7 +86,7 @@ as well as a surface with per-vertex coloring.
 
 ```
 ./run_target_protocol.sh 4QVF_A
-cd targets/4QFV_A
+cd targets/4QVF_A
 ```
 
 Finally, run the script to match Bcl-xL to all precomputed peptides: 
