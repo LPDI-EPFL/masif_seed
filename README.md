@@ -86,9 +86,7 @@ as well as a surface with per-vertex coloring.
 
 ```
 ./run_target_protocol.sh 4QVF_A
-cd targets
-cp -r template/ bclxl/
-cd bclxl
+cd targets/4QFV_A
 ```
 
 Finally, run the script to match Bcl-xL to all precomputed peptides: 
@@ -137,14 +135,14 @@ params['desc_dist_cutoff'] = 2.5
 params['nn_score_cutoff'] = 0.90
 ```
 
-The following files should be on your ```masif_seed_search/data/masif_targets/targets/template``` template directory: 
+The following files are in your target directory and can be used for clustering: 
 ```
 align_all_to_all_fixed_length.slurm 
 align_all_to_all_setup.sh
 MDS_HELICES_RMSD.ipynb
 ```
 
-Copy them to your run directory and then run in the following order: 
+Run them in the following order: 
 
 ```
 ./align_all_to_all_setup.sh
