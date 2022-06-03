@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+import pymesh
+import importlib
 import sys
 import dask
 from scipy.spatial import cKDTree
@@ -7,7 +9,6 @@ import time
 import os 
 from default_config.masif_opts import masif_opts
 from open3d import *
-import pymesh
 from simple_mesh import Simple_mesh
 from alignment_evaluation_nn import AlignmentEvaluationNN
 

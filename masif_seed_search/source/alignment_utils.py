@@ -1,4 +1,4 @@
-import open3d as o3d
+from geometry.open3d_import import *
 import scipy.linalg
 import networkx as nx 
 from scipy.spatial import cKDTree
@@ -71,8 +71,8 @@ def random_rotate_source_struct(source_struct, transformation):
     # Randomly rotate the source struct 
     structure_atoms = [atom for atom in source_struct.get_atoms()]
     structure_coords = np.array([atom.get_coord() for atom in structure_atoms])
-    structure_coord_pcd = o3d.PointCloud()
-    structure_coord_pcd.points = o3d.Vector3dVector(structure_coords)
+    structure_coord_pcd = PointCloud()
+    structure_coord_pcd.points = Vector3dVector(structure_coords)
     structure_coord_pcd_notTransformed = copy.deepcopy(structure_coord_pcd)
     structure_coord_pcd.transform(transformation)
     # - This is a bit of a bad programming practice: shouldn't be a for loop..
@@ -93,7 +93,7 @@ def load_protein_pcd(full_pdb_id, chain_number, paths, flipped_features=False, r
     pdb_chain = chain_ids[chain_number - 1]
 
     # Read the protein surface. 
-    pdb_pcd = o3d.read_point_cloud(
+    pdb_pcd = read_point_cloud(
         str(Path(paths['surf_dir']) /
             '{}_{}.ply'.format(
             pdb_id,
@@ -101,7 +101,7 @@ def load_protein_pcd(full_pdb_id, chain_number, paths, flipped_features=False, r
 
     if read_mesh == True:
         # Read both the vertices and their connection (i.e. the mesh)
-        pdb_mesh = o3d.read_triangle_mesh(
+        pdb_mesh = read_triangle_mesh(
             str(Path(paths['surf_dir']) /
             '{}_{}.ply'.format(
             pdb_id,
@@ -151,10 +151,10 @@ def get_patch_geo(
     if flip_normals:
         patch_nrmls = -patch_nrmls
 
-    patch = o3d.PointCloud()
-    patch.points = o3d.Vector3dVector(patch_pts)
-    patch.normals = o3d.Vector3dVector(patch_nrmls)
-    patch_descs = [o3d.Feature(), o3d.Feature(), o3d.Feature()]
+    patch = PointCloud()
+    patch.points = Vector3dVector(patch_pts)
+    patch.normals = Vector3dVector(patch_nrmls)
+    patch_descs = [Feature(), Feature(), Feature()]
     patch_descs[0].data = descriptors[0,patch_idxs, :].T
     return patch, patch_descs, patch_idxs
 
@@ -278,8 +278,8 @@ def test_alignments(transformation, source_structure, target_pcd_tree, interface
         test_alignments - evaluate quality of the alignments.
     """
     structure_coords = np.array([atom.get_coord() for atom in source_structure.get_atoms()])
-    structure_coord_pcd = o3d.PointCloud()
-    structure_coord_pcd.points = o3d.Vector3dVector(structure_coords)
+    structure_coord_pcd = PointCloud()
+    structure_coord_pcd.points = Vector3dVector(structure_coords)
     structure_coord_pcd.transform(transformation)
         
     d_nn_interface, i_nn_interface = target_pcd_tree.query(np.asarray(structure_coord_pcd.points),k=1,distance_upper_bound=interface_dist)
@@ -363,8 +363,8 @@ def count_clashes(transformation, source_surface_vertices, source_structure, \
     """
 
     structure_ca_coords = np.array([atom.get_coord() for atom in source_structure.get_atoms() if atom.get_id() == 'CA'])
-    structure_ca_coord_pcd = o3d.PointCloud()
-    structure_ca_coord_pcd.points = o3d.Vector3dVector(structure_ca_coords)
+    structure_ca_coord_pcd = PointCloud()
+    structure_ca_coord_pcd.points = Vector3dVector(structure_ca_coords)
     structure_ca_coord_pcd_notTransformed = copy.deepcopy(structure_ca_coord_pcd)
     structure_ca_coord_pcd.transform(transformation)
     d_nn_ca, i_nn_ca = target_pcd_tree.query(np.asarray(structure_ca_coord_pcd.points),k=1,distance_upper_bound=radius)
@@ -374,8 +374,8 @@ def count_clashes(transformation, source_surface_vertices, source_structure, \
 
     structure_atoms = [atom for atom in source_structure.get_atoms() if not atom.get_name().startswith('H')]
     structure_coords = np.array([atom.get_coord() for atom in structure_atoms])
-    structure_coord_pcd = o3d.PointCloud()
-    structure_coord_pcd.points = o3d.Vector3dVector(structure_coords)
+    structure_coord_pcd = PointCloud()
+    structure_coord_pcd.points = Vector3dVector(structure_coords)
     structure_coord_pcd_notTransformed = copy.deepcopy(structure_coord_pcd)
     structure_coord_pcd.transform(transformation)
     # Invoke cKDTree with (structure_coord_pcd)
@@ -406,14 +406,14 @@ def multidock(source_pcd, source_patch_coords, source_descs,
         source_patch, source_patch_descs, source_patch_idx = get_patch_geo(
             source_pcd, source_patch_coords, pt, source_descs, outward_shift=params['surface_outward_shift'])
            
-        result = o3d.registration_ransac_based_on_feature_matching(
+        result = registration_ransac_based_on_feature_matching(
             source_patch, target_pcd, source_patch_descs[0], target_descs[0],
             ransac_radius,
-            o3d.TransformationEstimationPointToPoint(False), 3,
-            [o3d.CorrespondenceCheckerBasedOnEdgeLength(0.9),
-             o3d.CorrespondenceCheckerBasedOnDistance(1.0),
-             o3d.CorrespondenceCheckerBasedOnNormal(np.pi/2)],
-            o3d.RANSACConvergenceCriteria(ransac_iter, 500)
+            TransformationEstimationPointToPoint(False), 3,
+            [CorrespondenceCheckerBasedOnEdgeLength(0.9),
+             CorrespondenceCheckerBasedOnDistance(1.0),
+             CorrespondenceCheckerBasedOnNormal(np.pi/2)],
+            RANSACConvergenceCriteria(ransac_iter, 500)
         )
         ransac_transformation = result.transformation 
         
@@ -421,8 +421,8 @@ def multidock(source_pcd, source_patch_coords, source_descs,
         # there exists a possibility that masif-search/masif-site will get the right patches, but ransac will fail to 
         # get a transformation. In these rare cases, icp will start from the ground truth. To get around this, make
         # sure a rotation is applied beforehand (for benchmarks at least)
-        result_icp = o3d.registration_icp(source_patch, target_pcd,
-                    1.0, result.transformation, o3d.TransformationEstimationPointToPlane())
+        result_icp = registration_icp(source_patch, target_pcd,
+                    1.0, result.transformation, TransformationEstimationPointToPlane())
 
         source_patch.transform(result_icp.transformation)
         all_results.append(result_icp)
