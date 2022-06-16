@@ -1,0 +1,112 @@
+<ROSETTASCRIPTS>
+
+	<SCOREFXNS>
+		<ScoreFunction name="sfxn" weights="ref2015" />
+	</SCOREFXNS>
+
+	<FILTERS>
+		<ShapeComplementarity name="sc" jump="1" verbose="1" min_sc="0.6" write_int_area="0" confidence="1" />
+		<Ddg name="ddG" scorefxn="sfxn" jump="1" repack="1" repeats="1" threshold="-10.0" confidence="1" />
+		<Sasa name="sasa" threshold="1000" hydrophobic="0" polar="0" jump="1" confidence="1" />
+		<ScoreType name="total_score" scorefxn="sfxn" score_type="total_score" threshold="0" confidence="1"/>
+        <BuriedUnsatHbonds2 name="buried_unsat_hbonds" jump_number="1" cutoff="5"/>     
+	    <PeptideInternalHbondsFilter name="hbonds" hbond_cutoff="2" exclusion_distance="1000" sidechain_sidechain="true" backbone_sidechain="true" backbone_backbone="false"/>
+    </FILTERS>
+
+	<MOVERS>
+		//Here is the mover that generates multiple pose results
+		<MotifGraft name="motif_grafting" 
+			context_structure="context_%%c%%.pdb" motif_structure="seed_%%s%%.pdb"
+			RMSD_tolerance="1" NC_points_RMSD_tolerance="1" 
+			clash_score_cutoff="5" clash_test_residue="GLY"
+			hotspots="%%r%%" combinatory_fragment_size_delta="0:0" max_fragment_replacement_size_delta="0:0"
+			full_motif_bb_alignment="1"  allow_independent_alignment_per_fragment="0"
+			graft_only_hotspots_by_replacement="1" only_allow_if_N_point_match_aa_identity="0"
+			only_allow_if_C_point_match_aa_identity="0" revert_graft_to_native_sequence="1" allow_repeat_same_graft_output="0" />
+		//HERE You add  all the other design movers
+		<MultiplePoseMover name="MPM_design" max_input_poses="3">
+		<SELECT>
+		</SELECT>
+			<ROSETTASCRIPTS>
+				<SCOREFXNS>
+					<ScoreFunction name="sfxn_soft_cart_cst" weights="ref2015" >
+						<Reweight scoretype="coordinate_constraint" weight="1.0" />
+						<Reweight scoretype="cart_bonded" weight="1.0"/>
+						<Reweight scoretype="pro_close" weight="0.0"/>
+					</ScoreFunction>
+¨                   <ScoreFunction name="sfxn_design" weights="ref2015" >
+                                <Reweight scoretype="approximate_buried_unsat_penalty" weight="10" />
+                                <Set approximate_buried_unsat_penalty_burial_probe_radius="2.3" />
+                                <Set approximate_buried_unsat_penalty_burial_atomic_depth="2.5" />
+                                <Set approximate_buried_unsat_penalty_hbond_energy_threshold="-0.25" />
+                                <Set approximate_buried_unsat_penalty_oversat_penalty="0" />
+                                <Reweight scoretype="coordinate_constraint" weight="1" />
+                    </ScoreFunction>
+
+                    <ScoreFunction name="sfxn_std" weights="ref2015">
+                                <Reweight scoretype="coordinate_constraint" weight="1" />
+                    </ScoreFunction>
+			    </SCOREFXNS>
+                <RESIDUE_SELECTORS>
+                         <ResiduePDBInfoHasLabel name="hotspot_label" property="HOTSPOT" />
+                </RESIDUE_SELECTORS>
+                 <RESIDUE_SELECTORS>
+                         <ResiduePDBInfoHasLabel name="scaffold_label" property="SCAFFOLD" />
+                </RESIDUE_SELECTORS>
+				<TASKOPERATIONS>
+                         <IncludeCurrent name="current" />
+                         <OperateOnResidueSubset name="hotspot_onlyrepack" selector="hotspot_label">
+                            <PreventRepackingRLT/>
+                            <!--RestrictToRepackingRLT/-->
+                         </OperateOnResidueSubset>
+                         <ProteinInterfaceDesign name="PID" repack_chain1="1" repack_chain2="1" design_chain1="0" design_chain2="1" interface_distance_cutoff="8"/>
+                         <InitializeFromCommandline name="init" />
+                        <DesignRestrictions name="allowed_aas">
+                            <Action aas="ADEFGHIKLMNQRSTVWY" selector_logic="scaffold_label"/>
+                        </DesignRestrictions>
+                        <LimitAromaChi2 name="limitchi2" include_trp="true" chi2min="45" chi2max="135"/>
+				</TASKOPERATIONS>
+				<FILTERS>
+                </FILTERS>
+				<MOVERS>
+                    
+					<MinMover name="min_classic" scorefxn="sfxn_soft_cart_cst" chi="true" bb="false" jump="1" cartesian="true" type="lbfgs_armijo_nonmonotone" tolerance="0.01" max_iter="400" />
+                    <PackRotamersMover name="design" scorefxn="sfxn_design" task_operations="init,current,PID,hotspot_onlyrepack,allowed_aas"/>
+                    <PackRotamersMover name="design2" scorefxn="sfxn_design" task_operations="init,current,PID,hotspot_onlyrepack,allowed_aas"/>
+                    <AtomCoordinateCstMover name="cst" coord_dev="5"  sidechain="false"/>
+                    <FastRelax name="fast-relax" scorefxn="sfxn_std" repeats="1" task_operations="current,limitchi2"/>
+				</MOVERS>
+				<APPLY_TO_POSE>
+				</APPLY_TO_POSE>
+				<PROTOCOLS>
+					<Add mover_name="design" />
+                    <Add mover_name="min_classic" />
+                    <Add mover_name="design2" />
+                    <Add mover_name="cst" />
+					<Add mover_name="fast-relax" />          
+				</PROTOCOLS>
+			</ROSETTASCRIPTS>
+		</MultiplePoseMover>
+		<MultiplePoseMover name="MPM_filters" max_input_poses="3">
+			<SELECT>
+				<AndSelector>
+					<Filter filter="sc" />
+					<Filter filter="ddG" />
+					<Filter filter="sasa" />
+					<Filter filter="total_score" />
+                    <Filter filter="buried_unsat_hbonds" />
+                    <Filter filter="hbonds" />
+				</AndSelector>
+			</SELECT>
+		</MultiplePoseMover>
+	</MOVERS>
+	<APPLY_TO_POSE>
+	</APPLY_TO_POSE>
+    <PROTOCOLS >
+	//HERE you combine everything together
+	<Add mover_name="motif_grafting" />
+	<Add mover_name="MPM_design" />
+	<Add mover_name="MPM_filters" />
+	</PROTOCOLS>
+
+</ROSETTASCRIPTS>
