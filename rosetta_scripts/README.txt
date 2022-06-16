@@ -1,1 +1,0 @@
-### Rosetta Scripts documentation ###
