@@ -8,13 +8,14 @@
 #SBATCH --output=./exelogs/out/splitfile.%A_%a.out
 #SBATCH --error=./exelogs/err/splitfile.%A_%a.err
 
-# To be modified : 
-# 1) Path to Rosetta binary
-# 2) Number of arrays (= number of seed) in "#SBATCH --array=..."
+# To be modified in this file: 
+# 1) Path to the Rosetta binary files
+# 2) Number of arrays (= number of seeds) in "#SBATCH --array=..."
+# To be provided in the working repository :
+# 1) A list of the seed and target filename
+# 2) The input PDB of the seeds in the "in" directory
 
 ROSETTA_BIN=/rosetta_07_2020/main/source/bin/rosetta_scripts.linuxiccrelease
-
-ls ./in/*.pdb > list.txt
 
 LINE=$(sed -n "$SLURM_ARRAY_TASK_ID"p list.txt)
 MYID=$SLURM_ARRAY_TASK_ID
