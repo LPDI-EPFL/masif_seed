@@ -1,0 +1,108 @@
+<ROSETTASCRIPTS>
+    <SCOREFXNS>
+        <ScoreFunction name="sfxn" weights="ref2015" />
+        <ScoreFunction name="sfxn_design" weights="ref2015" >
+            <Reweight scoretype="approximate_buried_unsat_penalty" weight="10" />
+            <Set approximate_buried_unsat_penalty_burial_probe_radius="2.3" />
+            <Set approximate_buried_unsat_penalty_burial_atomic_depth="2.5" />
+            <Set approximate_buried_unsat_penalty_hbond_energy_threshold="-0.25" />
+            <Set approximate_buried_unsat_penalty_oversat_penalty="0" />
+            <Reweight scoretype="hbond_sr_bb" weight="1" />
+            <Reweight scoretype="hbond_lr_bb" weight="1" />
+            <Reweight scoretype="hbond_bb_sc" weight="1" />
+            <Reweight scoretype="hbond_sc" weight="1" />
+            <Reweight scoretype="coordinate_constraint" weight="1" />
+        </ScoreFunction>
+
+    </SCOREFXNS>
+
+    <RESIDUE_SELECTORS>
+        <Chain name="chainA" chains="A"/>
+        <Chain name="chainB" chains="B"/>
+        <Neighborhood name="interface_chA" selector="chainB" distance="10.0" include_focus_in_subset="false" />
+        <Neighborhood name="interface_chB" selector="chainA" distance="10.0" include_focus_in_subset="false" />
+
+        <InterfaceByVector name="AB_interface" cb_dist_cut="11" nearby_atom_cut="5.5" vector_angle_cut="75" vector_dist_cut="10" grp1_selector="interface_chA" grp2_selector="interface_chB"/>
+
+        <Not name="Not_interface" selector="AB_interface" />
+    </RESIDUE_SELECTORS>
+
+    <TASKOPERATIONS>
+
+        <OperateOnResidueSubset name="restrict_to_interface" selector="Not_interface">
+            <PreventRepackingRLT/>
+        </OperateOnResidueSubset>
+        <OperateOnResidueSubset name="restrict_target2repacking" selector="chainB">
+            <RestrictToRepackingRLT/>
+        </OperateOnResidueSubset>
+        <DesignRestrictions name="allowed_aas">
+            <Action aas="ADEFGHIKLMNQRSTVWY" selector_logic="chainA"/>
+        </DesignRestrictions>
+
+        <IncludeCurrent name="current" />
+        <ExtraRotamersGeneric name="ex1_ex2" ex1="1" ex2="1" />
+        <ProteinProteinInterfaceUpweighter name="upweight_interface" interface_weight="3" />
+
+    </TASKOPERATIONS>
+
+    <FILTERS>
+            <ShapeComplementarity name="sc" residue_selector1="chainA" residue_selector2="chainB" confidence="0" />
+            <PeptideInternalHbondsFilter name="hbonds" backbone_backbone="false" backbone_sidechain="true" sidechain_sidechain="true" exclusion_distance="100000" hbond_cutoff="0" />
+            <BuriedUnsatHbonds2 name="buried_unsat_hbonds" jump_number="1"/>
+            <Ddg name="ddg" scorefxn="sfxn" jump="1" repack="0" repeats="1" threshold="1000" confidence="1" />
+            <BuriedUnsatHbonds name="buns_all_heavy_ball_interface" report_all_heavy_atom_unsats="true" scorefxn="sfxn" cutoff="4" ignore_surface_res="false" print_out_info_to_pdb="true" use_ddG_style="true" dalphaball_sasa="1" probe_radius="1.1" burial_cutoff_apo="0.2" confidence="0" />
+             <Sasa name="sasa" confidence="1" jump="1"  polar="0" hydrophobic="0"/>
+    </FILTERS>
+    <MOVERS>
+
+        <AtomCoordinateCstMover name="constrainCA" coord_dev="0.5" />
+
+        <FastDesign name="FastDesign" scorefxn="sfxn_design" repeats="1" task_operations="current,ex1_ex2,restrict_to_interface,restrict_target2repacking,allowed_aas,upweight_interface" batch="false" ramp_down_constraints="false" cartesian="false" bondangle="false" bondlength="false" min_type="dfpmin_armijo_nonmonotone" relaxscript="no_ref.rosettacon2018.beta_nov16.txt" >
+            <MoveMap name="MM" >
+                    <Chain number="1" chi="true" bb="true" />
+                    <Chain number="2" chi="true" bb="false" />
+                    <Jump number="1" setting="true" />
+            </MoveMap>
+        </FastDesign>
+
+        <MinMover name="chi_min" scorefxn="sfxn" chi="0" bb="0" tolerance="0.001" cartesian="false" type="lbfgs_armijo_nonmonotone">
+            <MoveMap name="MM" >
+                <Chain number="1" chi="true" bb="false" />
+                <Chain number="2" chi="true" bb="false" />
+                <Jump number="1" setting="false" />
+            </MoveMap>
+        </MinMover>
+        <FilterReportAsPoseExtraScoresMover name="report_ddg_pre" report_as="ddg_pre" filter_name="ddg"/>
+        <FilterReportAsPoseExtraScoresMover name="report_ddg_post" report_as="ddg_post" filter_name="ddg"/>
+        <FilterReportAsPoseExtraScoresMover name="report_hbonds_pre" report_as="hbonds_pre" filter_name="hbonds"/>
+        <FilterReportAsPoseExtraScoresMover name="report_hbonds_post" report_as="hbonds_post" filter_name="hbonds"/>
+        <FilterReportAsPoseExtraScoresMover name="report_bunsh_pre" report_as="bunsh_pre" filter_name="buns_all_heavy_ball_interface"/>
+        <FilterReportAsPoseExtraScoresMover name="report_bunsh_post" report_as="bunsh_post" filter_name="buns_all_heavy_ball_interface"/>
+        <FilterReportAsPoseExtraScoresMover name="report_bunsh2_pre" report_as="bunsh2_pre" filter_name="buried_unsat_hbonds"/>
+        <FilterReportAsPoseExtraScoresMover name="report_bunsh2_post" report_as="bunsh2_post" filter_name="buried_unsat_hbonds"/>
+        <FilterReportAsPoseExtraScoresMover name="report_sasa_pre" report_as="sasa_pre" filter_name="sasa"/>
+        <FilterReportAsPoseExtraScoresMover name="report_sasa_post" report_as="sasa_post" filter_name="sasa"/>
+        <FilterReportAsPoseExtraScoresMover name="report_sc_pre" report_as="sc_pre" filter_name="sc"/>
+        <FilterReportAsPoseExtraScoresMover name="report_sc_post" report_as="sc_post" filter_name="sc"/>
+        <InterfaceAnalyzerMover name="ia" scorefxn="sfxn" jump="1" />
+    </MOVERS>
+    <APPLY_TO_POSE>
+    </APPLY_TO_POSE>
+    <PROTOCOLS>
+        <Add mover="report_ddg_pre"/>
+        <Add mover="report_bunsh_pre"/>
+        <Add mover="report_bunsh2_pre"/>
+        <Add mover="report_hbonds_pre"/>
+        <Add mover="report_sasa_pre"/>
+        <Add mover="report_sc_pre"/>
+        <Add mover="constrainCA" />
+        <Add mover="FastDesign" />
+        <Add mover="report_ddg_post" />
+        <Add mover="report_bunsh_post" />
+        <Add mover="report_bunsh2_post"/>
+        <Add mover="report_hbonds_post"/>
+        <Add mover="report_sasa_post"/>
+        <Add mover="report_sc_post"/>
+    </PROTOCOLS>
+    <OUTPUT />
+</ROSETTASCRIPTS>

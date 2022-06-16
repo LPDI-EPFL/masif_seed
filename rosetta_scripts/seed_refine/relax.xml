@@ -1,0 +1,30 @@
+<ROSETTASCRIPTS>
+  <SCOREFXNS>
+        <ScoreFunction name="sfxn" weights="ref2015">
+            <Reweight scoretype="coordinate_constraint" weight="1.0"/>
+        </ScoreFunction>
+  </SCOREFXNS>
+  <RESIDUE_SELECTORS>
+  </RESIDUE_SELECTORS>
+  <SIMPLE_METRICS>
+  </SIMPLE_METRICS>
+  <TASKOPERATIONS>
+        <IncludeCurrent name="current"/>
+        <LimitAromaChi2 name="limitchi2" include_trp="true" chi2min="45" chi2max="135"/>
+  </TASKOPERATIONS>
+  <FILTERS>
+  </FILTERS>
+  <MOVERS>
+        <VirtualRoot name="root" removable="false" remove="false" />
+        <AtomCoordinateCstMover name="cst" coord_dev="5"  sidechain="false"/>
+        <FastRelax name="fast-relax" scorefxn="sfxn" repeats="10" task_operations="current,limitchi2"/>
+  </MOVERS>
+  <APPLY_TO_POSE>
+  </APPLY_TO_POSE>
+  <PROTOCOLS>
+        <Add mover_name="root"/>
+        <Add mover_name="cst"/>
+        <Add mover_name="fast-relax" />
+  </PROTOCOLS>
+  <OUTPUT />
+</ROSETTASCRIPTS>
