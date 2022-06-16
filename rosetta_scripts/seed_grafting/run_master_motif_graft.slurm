@@ -11,8 +11,6 @@
 
 # To be modified in this file : The number of arrays ('#SBATCH --array=...') corresponding to the number of seeds to be grafted
 
-ls ./input/*.pdb > list.txt
-
 COMPLEX=$(sed -n "$SLURM_ARRAY_TASK_ID"p list.txt)
 CHAINS=($(python3 ../tools/find_chains.py $COMPLEX))
 HOTSPOTS=$(python3 ../tools/find_hotspots.py $COMPLEX ${CHAINS[0]} ${CHAINS[1]})
