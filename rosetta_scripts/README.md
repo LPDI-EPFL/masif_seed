@@ -4,4 +4,4 @@ Two groups of Rosetta scripts have been used in this publication : one for refin
 This scripts aims to :
 1) Take as an input the seeds provided by MaSIF
 2) Put the seed PDB in complex with the target and relax the pose 
-3) Re-design with interface with a penalty for buried unsatisfied polar atoms in the Rosetta scoring function
+3) Re-design the interface with a penalty for buried unsatisfied polar atoms in the Rosetta scoring function
