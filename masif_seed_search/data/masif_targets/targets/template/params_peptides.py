@@ -4,7 +4,7 @@ from default_config.masif_opts import masif_opts
 
 params = {}
 # Directory where the database is located. 
-params['masif_db_root'] = "/work/upcorreia/databases/masif_db/"
+params['masif_db_root'] = "../../../../../masif/"
 # Seeds (i.e., the fragments) that will be used for this search. 
 params['top_seed_dir'] = os.path.join(params['masif_db_root'], 'data/masif_peptides/')
 # Root of the targets directory (where to find the sources.)

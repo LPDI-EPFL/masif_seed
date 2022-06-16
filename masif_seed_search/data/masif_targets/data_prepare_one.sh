@@ -1,7 +1,7 @@
 #!/bin/bash
 masif_root=../../../
-masif_source=$masif_root/source/
-masif_seed_source=../../source/
+masif_source=$masif_root/masif/source/
+masif_seed_source=$masif_root/masif_seed_search/source/
 export PYTHONPATH=$masif_source
 export masif_matlab
 if [ "$1" == "--file" ]
