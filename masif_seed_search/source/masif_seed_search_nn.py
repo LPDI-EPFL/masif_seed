@@ -93,7 +93,7 @@ else:
 
 outdir = params['out_dir_template'].format(target_name)
 if not os.path.exists(outdir):
-    os.makedirs(outdir)
+    os.makedirs(outdir, exist_ok=True)
 
 # Copy the pdb structure and the ply file of the target 
 shutil.copy(target_pdb_path, outdir)
