@@ -14,8 +14,9 @@ fi
 
 source /work/upcorreia/bin/load_masif_environment.sh
 
-masif_seed_search_root=$(git rev-parse --show-toplevel)
-masif_root=$masif_seed_search_root/../
+masif_seed_root=$(git rev-parse --show-toplevel)
+masif_seed_search_root=$masif_seed_root/masif_seed_search
+masif_root=$masif_seed_root/masif
 masif_target_root=$masif_seed_search_root/data/masif_targets/
 export masif_db_root=../../../../../masif/
 masif_source=$masif_root/source/
