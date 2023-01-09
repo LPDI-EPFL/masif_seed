@@ -1,3 +1,10 @@
+###
+# Take a seed and target PDBs as an input
+# Identify the contact residues and crop the seed to the minimum number of residues required from grafting
+# Finally, return a string containing all the hotspots making contact with the target (<2.5A).
+# Formating of the string is compatible with the 'hotspots' argument of the MotifGraft mover of RosettaScript.
+###
+
 import os,sys,string,gzip
 import math
 
@@ -56,10 +63,6 @@ ch_seed = 'B'
 ch_target = 'A'
 seed_file='./cropseed_'+array+'.pdb'
 context_file='./context_'+array+'.pdb'
-#infile=r"3DH7002_A_7_3OSK_V.pdb"
-#ch_seed='A'
-#ch_target='B'
-
 outstr=''
 
 for j in range (1, find_nfrag(seed_file)+1,1):
