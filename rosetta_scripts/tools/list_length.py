@@ -1,3 +1,7 @@
+###
+# Create a file with the amino acid length of each design found in the 'results' folder after grafting
+###
+
 import os,sys,string,gzip
 
 def find_pdb_files():
