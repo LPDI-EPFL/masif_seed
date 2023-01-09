@@ -1,3 +1,8 @@
+###
+# Take a seed:target complex PDB and both chain names as an input, and return a string containing all the hotspots making contact with the target (<2.5A).
+# Formating of the string is compatible with the 'hotspots' argument of the MotifGraft mover of RosettaScript.
+###
+
 import os,sys,string,gzip
 import math
 
@@ -57,9 +62,6 @@ def find_min_dist(input_pdb, resid, chain_target):
 infile = sys.argv[1]
 ch_seed = sys.argv[2]
 ch_target = sys.argv[3]
-#infile=r"3DH7002_A_7_3OSK_V.pdb"
-#ch_seed='A'
-#ch_target='B'
 
 len_seed=find_length(infile,ch_seed)
 start=find_start(infile,ch_seed)
