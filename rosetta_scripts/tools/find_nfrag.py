@@ -1,3 +1,8 @@
+###
+# Identify the number of discontinuous fragment found in the PDB (for beta sheet seeds)
+# Later used to adapt the MotifGraft mover of RosettaScript to the number of fragments present in the seed
+###
+
 import sys
 
 def find_nfrag(seed_pdb):
