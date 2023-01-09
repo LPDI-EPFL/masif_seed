@@ -1,3 +1,7 @@
+###
+# Gather all the score files found in the 'results' folder in one single file (for beta sheet seeds)
+###
+
 import os, sys
 import pandas as pd
 import re
