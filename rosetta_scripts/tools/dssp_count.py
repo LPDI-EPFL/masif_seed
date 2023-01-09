@@ -1,3 +1,7 @@
+###
+# Counts the ratio of contact residue found in beta sheet region (based on DSSP) versus all contact residues
+###
+
 from Bio.PDB import *
 from Bio.PDB.DSSP import DSSP
 import numpy as np
