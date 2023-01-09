@@ -1,3 +1,7 @@
+###
+# Gather all the score files found in the 'results' folder in one single file (for helical seeds)
+###
+
 import os, sys
 import pandas as pd
 
