@@ -18,5 +18,8 @@ This scripts aims to:
 4) Submit the job to your cluster using `submitter.slurm`
 ### Output
 The script will output the relaxed seed-target complex in the `relax` folder and the redesigned seed in complex with the target in the `output` folder. Some common metrics such as shape complementarity, number of hydrogen bonds, number of buried unsatisfied polar atoms and computed binding energy could be found in the score file `score.sc`. We recommend to select the best 30-50 seeds prior grafting. 
+
+Note : For beta-sheed seeds, we recommend to use only seeds where >66% contact is made by beta sheets (rather than loops). The utility scripts `../tools/dssp_count.py` provides the ratio of residues found in beta sheet regions versus all contact residues. 
+
 ### Reference
    * Coventry, B. & Baker, D. Protein sequence optimization with a pairwise decomposable penalty for buried unsatisfied hydrogen bonds. PLOS Comput. Biol. 17, e1008061 (2021).
