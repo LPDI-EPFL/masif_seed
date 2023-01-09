@@ -27,7 +27,9 @@ The script will output the relaxed seed-target complex in the `relax` folder and
 ### Definition 
 This scripts aims to:
 1) Take as an input a selection of refined seeds
-2) Rename the seed with a unique ID number and define the hotspot residues for each seed
+2) Rename the seed with a unique ID number and...
+   * Alpha helices seeds : Define the hotspot residues for each seed
+   * Beta sheet seeds: Crop the loop region, define the hotspot residues for each seed and crop the side-chain without any contact
 3) Graft each seed in parallel on a suitable scaffold originating from a scaffold database (Double job paralellization) using the MotifGraft mover
 4) Refine the scaffold with two rouds of design and minimization with a penalty for buried unsatisfied polar atoms in the Rosetta scoring function
 ### Use
