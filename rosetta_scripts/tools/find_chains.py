@@ -1,3 +1,7 @@
+###
+# Take a PDB as an input and return a string of the different chain names found in this PDB 
+###
+
 import os, sys
 import Bio
 from Bio.PDB import PDBParser
