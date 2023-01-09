@@ -1,3 +1,8 @@
+###
+# Take a seed:target complex PDB as an input and an array number, and will output separated complex in two different PDBs with a name based on the array number.
+# Seed PDBs are cropped and composed only of residues found in beta sheet regions (based on DSSP)
+###
+
 from Bio.PDB import PDBParser
 from Bio.PDB.DSSP import DSSP
 import argparse
