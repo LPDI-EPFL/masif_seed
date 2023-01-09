@@ -1,3 +1,7 @@
+###
+# Take a seed:target complex PDB as an input and an array number, and will output separated complex in two different PDBs with a name based on the array number. 
+###
+
 import os, sys
 import Bio
 from Bio.PDB import PDBParser
