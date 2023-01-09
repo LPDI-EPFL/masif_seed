@@ -1,4 +1,4 @@
-## Documentation about the seed grafting procedure
+## Documentation about the seed grafting procedure (Alpha helices seeds)
 ### Definition 
 This scripts aims to:
 1) Take as an input a selection of refined seeds
