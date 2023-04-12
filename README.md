@@ -23,7 +23,7 @@ This repository contains the code for MaSIF-seed, used in the paper [citation.bi
 
 ## Method overview
 
-![MaSIF-seed overview and pipeline](img/fig1_v16_Artboard%201.png)
+![MaSIF-seed overview and pipeline](img/figure.png)
 
 
 ## System and hardware requirements
