@@ -1,6 +1,6 @@
 ## _MaSIF-seed_ - An enhanced representation of protein structures that enables de novo design of protein interactions
 
-This repository contains code to design de novo binders based on surface fingerprints. The code was used to perform the experiments in: [citation].
+This repository contains code to design de novo binders based on surface fingerprints. The code was used to perform the experiments in: [citation.bib](citation.bib).
 
 ## Table of Contents: 
 
@@ -19,7 +19,7 @@ This repository contains code to design de novo binders based on surface fingerp
 
 ## Description
 
-This repository contains the code for MaSIF-seed, used in the paper [citation.bib](citation.bib). This code was used to decompose the PDB into helices 
+Physical interactions between proteins are essential for most biological processes governing life. However, the molecular determinants of such interactions have been challenging to understand, even as genomic, proteomic, and structural data grows. This knowledge gap has been a major obstacle for the comprehensive understanding of cellular protein-protein interaction (PPI) networks and for the de novo design of protein binders that are crucial for synthetic biology and translational applications. We exploit a geometric deep learning framework operating on protein surfaces that generates fingerprints to describe geometric and chemical features critical to drive PPIs. We hypothesized these fingerprints capture the key aspects of molecular recognition that represent a new paradigm in the computational design of novel protein interactions. As a proof-of-principle, we computationally designed several de novo protein binders to engage four protein targets: SARS-CoV-2 spike, PD-1, PD-L1, and CTLA-4. Several designs were experimentally optimized while others were purely generated in silico, reaching nanomolar affinity with structural and mutational characterization showing highly accurate predictions. Overall, our surface-centric approach captures the physical and chemical determinants of molecular recognition, enabling a novel approach for the de novo design of protein interactions and, more broadly, of artificial proteins with function.
 
 ## Method overview
 
