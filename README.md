@@ -163,8 +163,8 @@ MaSIF-seed uses a large amount of temporary storage for the patch decomposition,
 
 ## Design of novel protein binders
 
-To apply MaSIF-seed to the design of PPIs, we provide an example [Jupyter notebook](main/scripts/masif_seed_pdl1.ipynb) 
-that demonstrates how to design a binder gainst PD-L1 using non-helical fragments. A description of the Rosetta scripts used during design can be found [here](main/rosetta_scripts/README.md).
+To apply MaSIF-seed to the design of PPIs, we provide an example [Jupyter notebook](scripts/masif_seed_pdl1.ipynb) 
+that demonstrates how to design a binder gainst PD-L1 using non-helical fragments. A description of the Rosetta scripts used during design can be found [here](rosetta_scripts/README.md).
 
 
 ## License
