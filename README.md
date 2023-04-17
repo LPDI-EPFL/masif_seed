@@ -13,7 +13,7 @@ This repository contains code to design de novo binders based on surface fingerp
 - [Docker container](#Docker-container)
 - [Step-by-step example](#step-by-step-example)
 - [Reproducing the benchmarks](#reproducing-the-benchmark)
-- [Running the code on PD-L1, PD-1, and RBD](#running-the-code-on-pd-l1,-pd-1,-and-RBD)
+- [Design of novel protein binders](#Design-of-novel-protein-binders)
 - [PyMOL plugin](masif/README.md#pymol-plugin)
 - [License](#License)
 - [Reference](#Reference)
@@ -159,6 +159,13 @@ Computing MaSIF-search fingerprints is around 60x faster with a GPU vs. a CPU.
 Currently, the slowest step in MaSIF-seed is the precomputation of features. A branch is available in this repository that is signficantly faster in precomputations, bringing down the computation for a large protein from a minute or two to a few seconds. You are welcome to experiment with this version. The main changes to the fast version are in the replacement of multi-dimensional scaling for patch radial coordinates (the slowest step in precomputation) with radial coordinates computed directly with Dijkstra.
 
 MaSIF-seed uses a large amount of temporary storage for the patch decomposition, but most of it is not necessary to keep after computing fingerprints. 
+
+
+## Design of novel protein binders
+
+To apply MaSIF-seed to the design of PPIs, we provide an example [Jupyter notebook](main/scripts/masif_seed_pdl1.ipynb) 
+that demonstrates how to design a binder gainst PD-L1 using non-helical fragments. A description of the Rosetta scripts used during design can be found [here](main/rosetta_scripts/README.md).
+
 
 ## License
 
