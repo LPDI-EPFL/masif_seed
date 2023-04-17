@@ -12,7 +12,6 @@ This repository contains code to design de novo binders based on surface fingerp
 - [System and hardware requirements](#system-and-hardware-requirements)
 - [Docker container](#Docker-container)
 - [Step-by-step example](#step-by-step-example)
-- [Reproducing the benchmarks](#reproducing-the-benchmark)
 - [Design of novel protein binders](#Design-of-novel-protein-binders)
 - [PyMOL plugin](masif/README.md#pymol-plugin)
 - [License](#License)
