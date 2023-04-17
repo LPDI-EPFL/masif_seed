@@ -2,18 +2,19 @@
 
 This repository contains code to design de novo binders based on surface fingerprints. The code was used to perform the experiments in: [citation.bib](citation.bib).
 
+[![bioRxiv shield](https://img.shields.io/badge/bioRxiv-1709.01233-green.svg?style=flat)](https://www.biorxiv.org/content/early/2023/01/03/2022.06.16.496402)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2625420.svg)](https://zenodo.org/record/7643697)
+
 ## Table of Contents: 
 
 - [Description](#description)
 - [Method overview](#Method-overview)
 - [System and hardware requirements](#system-and-hardware-requirements)
-- [Running through a docker container](#running-through-a-docker-container)
-     * [MaSIF data preparation](#MaSIF-data-preparation)
-- [Step-by-step example](#code-overview)
+- [Docker container](#Docker-container)
+- [Step-by-step example](#step-by-step-example)
 - [Reproducing the benchmarks](#reproducing-the-benchmark)
 - [Running the code on PD-L1, PD-1, and RBD](#running-the-code-on-pd-l1,-pd-1,-and-RBD)
-- [PyMOL plugin](#PyMOL-plugin)
-- [Docker container](#Docker-container)
+- [PyMOL plugin](masif/README.md#pymol-plugin)
 - [License](#License)
 - [Reference](#Reference)
 
@@ -33,7 +34,7 @@ MaSIF-seed has been tested on Linux, and it is recommended to run on an x86-base
 Currently, MaSIF takes a few seconds to preprocess every protein. We find the main bottleneck to be the APBS computation for surface charges, which can likely be optimized. Nevertheless, we recommend a distributed cluster to 
 preprocess the data for large datasets of proteins. A GPU is strongly recommended, especially for computing MaSIF-search and MaSIF-site inference, as it can be 60 times faster!
 
-## Running through a docker container
+## Docker container
 
 Since MaSIF-seed relies on a few external programs (msms, APBS) and libraries (pyMesh, tensorflow, scipy, open3D), 
 we strongly recommend you use the Dockerfile and Docker container. 
