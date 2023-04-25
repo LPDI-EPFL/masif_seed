@@ -31,5 +31,5 @@ $ROSETTA_BIN -overwrite \
          -parser:script_vars r=$HOTSPOTS s=$UPPERID c=$UPPERID \
          -no_nstruct_label \
          -out:suffix _S$UPPERID
-#         -parser:protocol minimal_motif_graft_and_design.xml\
+
 echo "CASTOR: RUN FINISHED"
