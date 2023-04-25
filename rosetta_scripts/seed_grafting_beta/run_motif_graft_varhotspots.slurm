@@ -33,12 +33,12 @@ fi
 mkdir -p results/seed_$UPPERID/$MYID
 $ROSETTA_BIN -overwrite \
          -ex1 -ex2 -ignore_zero_occupancy false \
-         -parser:protocol grafting_varhotspots2.xml\
+         -parser:protocol grafting_varhotspots.xml\
          -l $in_dir/splitfile_$MYID.split \
          -ignore_unrecognized_res -nstruct 1 \
          -out:path:all results/seed_$UPPERID/$MYID \
          -parser:script_vars h=$HOTSPOTS s=$UPPERID c=$UPPERID f=$DELTA1 r=$DELTA2\
          -no_nstruct_label \
          -out:suffix _S$UPPERID
-#         -parser:protocol minimal_motif_graft_and_design.xml\
+
 echo "CASTOR: RUN FINISHED"
