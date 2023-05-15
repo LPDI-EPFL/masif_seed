@@ -76,13 +76,13 @@ for ppi_pair_id in ppi_pair_ids:
             continue
         try:
             scores = np.load(
-                params["out_pred_dir"] + "/pred_" + pdbid + "_" + chains[ix] + ".npy"
+                params["out_pred_dir"] + "pred_" + pdbid + "_" + chains[ix] + ".npy"
             )
         except:
             print(
                 "File does not exist: {}".format(
                     params["out_pred_dir"]
-                    + "/pred_"
+                    + "pred_"
                     + pdbid
                     + "_"
                     + chains[ix]
